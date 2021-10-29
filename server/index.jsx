@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
 const handle = routes.getRequestHandler(app)
+const shotRoutes = require('./routes/shot.jsx')
 
 app.prepare()
    .then(() => {
@@ -14,6 +15,7 @@ app.prepare()
      server.use(compression())
      server.use(bodyParser.json())
 
+     server.use('/api/shot', shotRoutes)
      server.get('*', (req, res) => {
        return handle(req, res)
      })
