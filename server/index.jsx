@@ -1,12 +1,11 @@
 const express = require('express')
 const next = require('next')
-const routes = require('../routes.jsx')
 const compression = require('compression')
 const bodyParser = require('body-parser')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
-const handle = routes.getRequestHandler(app)
+const handle = app.getRequestHandler()
 const shotRoutes = require('./routes/shot.jsx')
 
 app.prepare()
