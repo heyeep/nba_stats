@@ -34,4 +34,3 @@ export const getShotDataPoints = (set) => {
   }
   return shots
 }
-q

@@ -32,10 +32,10 @@ export default function ScatterChart({ width, height, points }) {
             <Circle
               key={`point-${point[0]}-${i}`}
               className="dot"
-              cx={xScale(point.x)}
-              cy={yScale(point.y)}
+              cx={xScale(point.locX)}
+              cy={yScale(point.locY)}
               r={i % 2 === 0 ? 2 : 3}
-              fill={"teal"}
+              fill={point.eventType === 'Missed Shot' ? 'red' : 'teal'}
               opacity={0.4}
             />
           ))}
