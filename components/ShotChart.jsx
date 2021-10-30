@@ -1,11 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
-import { VictoryChart, VictoryTheme, VictoryScatter, VictoryAxis } from 'victory'
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 import ScatterChart from './ScatterChart'
 import { getShots } from '../actions'
-import { shotsToJson, getDataPoints} from '../helpers/util'
+import { getShotDataPoints } from '../helpers/util'
 
 class ShotChart extends React.Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class ShotChart extends React.Component {
       const response = await getShots()
       if (response.status === 200) {
         const rows = response.data.resultSets[0].rowSet
-        this.setState({shots: shotsToJson(rows)})
+        this.setState({shots: getShotDataPoints(rows)})
       }
     } catch (err) {
       console.error(err)
@@ -38,7 +37,7 @@ class ShotChart extends React.Component {
           <ParentSize>{({ width, height }) =>
               <ScatterChart width={width}
                             height={height}
-                            points={getDataPoints(shots)}/>}
+                            points={shots}/>}
           </ParentSize>,
         </div>
       </>

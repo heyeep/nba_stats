@@ -1,6 +1,6 @@
 // Data from shotchartdetail is an array of arrays.
 // This functions labels each element in that array.
-export const shotsToJson = (set) => {
+export const getShotDataPoints = (set) => {
   let shots = []
   for (let row = 0; row < set.length; row++) {
     let shot = {
@@ -8,17 +8,18 @@ export const shotsToJson = (set) => {
       gameId: set[row][1],
       gameEventId: set[row][2],
       playerId: set[row][3],
-      teamId: set[row][4],
-      teamName: set[row][5],
-      period: set[row][6],
-      minutesRemaining: set[row][7],
-      secondsRemaining: set[row][8],
-      eventType: set[row][9],
-      actionType: set[row][10],
-      shotType: set[row][11],
-      shotZoneBasic: set[row][12],
-      shotZoneArea: set[row][13],
-      shotZoneRange: set[row][14],
+      playerName: set[row][4],
+      teamId: set[row][5],
+      teamName: set[row][6],
+      period: set[row][7],
+      minutesRemaining: set[row][8],
+      secondsRemaining: set[row][9],
+      eventType: set[row][10],
+      actionType: set[row][11],
+      shotType: set[row][12],
+      shotZoneBasic: set[row][13],
+      shotZoneArea: set[row][14],
+      shotZoneRange: set[row][15],
       shotDistance: set[row][16],
       locX: set[row][17],
       locY: set[row][18],
@@ -28,16 +29,9 @@ export const shotsToJson = (set) => {
       HTM: set[row][22],
       VTM: set[row][23],
     }
+    console.log(shot.eventType)
     shots.push(shot)
   }
   return shots
 }
-
-export const getDataPoints = (shots) => {
-  let points = []
-  shots.forEach(shot => {
-    const point = {x: shot.locX, y: shot.locY, z: 0}
-    points.push(point)
-  })
-  return points
-}
+q
