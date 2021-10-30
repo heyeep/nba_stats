@@ -20,7 +20,7 @@ exports.getShots = async (req, res) => {
  const shots = await axios.get(`https://stats.nba.com/stats/shotchartdetail?\
 ContextMeasure=FGA&LastNGames=0&LeagueID=00&Month=0&OpponentTeamID=0&Period=0&\
 PlayerID=201939&SeasonType=Regular%20Season&TeamID=0&VsDivision=&VsConference=&\
-SeasonSegment=&Season=2019-20&RookieYear=&PlayerPosition=&Outcome=&Location=&\
+SeasonSegment=&Season=2018-19&RookieYear=&PlayerPosition=&Outcome=&Location=&\
 GameSegment=&GameId=&DateTo=&DateFrom=`, getHeaders())
                            .then(response => res.status(200).json(response.data))
                            .catch(err => res.status(442).send(err))

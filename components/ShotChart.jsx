@@ -1,8 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
-import { getShots } from '../actions'
+import { VictoryChart, VictoryTheme, VictoryScatter, VictoryAxis } from 'victory'
 
-import {shotsToJson} from '../helpers/util'
+import { getShots } from '../actions'
+import { shotsToJson, getDataPoints } from '../helpers/util'
 
 class ShotChart extends React.Component {
   constructor(props) {
@@ -21,17 +22,41 @@ class ShotChart extends React.Component {
     } catch (err) {
       console.error(err)
     }
-    console.log(this.state.shots)
   }
 
   render() {
     const { className, children, title, headerType } = this.props
+    const { shots } = this.state
     return (
       <>
         <Head>
           <title>{title}</title>
         </Head>
         <div className="shotchart-page">
+              <VictoryChart
+                theme={VictoryTheme.material}
+                domain={{ x: [0, 550], y: [0, 550] }}
+              >
+                <VictoryScatter
+                  style={{
+                    data: {
+                      fill: "#AA1111",
+                      opacity: 0.3
+                    }
+                  }}
+                  size={2}
+                  data={getDataPoints(shots)}
+                />
+
+                <VictoryAxis crossAxis
+             //                tickValues={[1]}
+                             tickFormat={(x) => (``)}
+                />
+                <VictoryAxis dependentAxis
+                //             tickValues={[1]}
+                             tickFormat={(x) => (``)}
+                />
+              </VictoryChart>
           <main className={`cover ${className}`}>
           </main>
         </div>
