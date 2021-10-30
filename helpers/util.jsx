@@ -34,10 +34,9 @@ export const shotsToJson = (set) => {
 }
 
 export const getDataPoints = (shots) => {
-  const OFFSET = 275
   let points = []
   shots.forEach(shot => {
-    const point = {x: shot.locX + OFFSET, y: shot.locY}
+    const point = {x: shot.locX, y: shot.locY, z: 0}
     points.push(point)
   })
   return points

@@ -1,9 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
 import { VictoryChart, VictoryTheme, VictoryScatter, VictoryAxis } from 'victory'
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
+import ScatterChart from './ScatterChart'
 import { getShots } from '../actions'
-import { shotsToJson, getDataPoints } from '../helpers/util'
+import { shotsToJson, getDataPoints} from '../helpers/util'
 
 class ShotChart extends React.Component {
   constructor(props) {
@@ -32,33 +34,12 @@ class ShotChart extends React.Component {
         <Head>
           <title>{title}</title>
         </Head>
-        <div className="shotchart-page">
-              <VictoryChart
-                theme={VictoryTheme.material}
-                domain={{ x: [0, 550], y: [0, 550] }}
-              >
-                <VictoryScatter
-                  style={{
-                    data: {
-                      fill: "#AA1111",
-                      opacity: 0.3
-                    }
-                  }}
-                  size={2}
-                  data={getDataPoints(shots)}
-                />
-
-                <VictoryAxis crossAxis
-             //                tickValues={[1]}
-                             tickFormat={(x) => (``)}
-                />
-                <VictoryAxis dependentAxis
-                //             tickValues={[1]}
-                             tickFormat={(x) => (``)}
-                />
-              </VictoryChart>
-          <main className={`cover ${className}`}>
-          </main>
+        <div className="shotchart-page" style={{"height" : "700px", "width" : "700px"}}>
+          <ParentSize>{({ width, height }) =>
+              <ScatterChart width={width}
+                            height={height}
+                            points={getDataPoints(shots)}/>}
+          </ParentSize>,
         </div>
       </>
     )
