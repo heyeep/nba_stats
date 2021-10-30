@@ -8,6 +8,7 @@ const app = next({dev})
 const handle = app.getRequestHandler()
 const shotRoutes = require('./routes/shot.jsx')
 const playerRoutes = require('./routes/players.jsx')
+const teamRoutes = require('./routes/teams.jsx')
 
 app.prepare()
    .then(() => {
@@ -17,6 +18,7 @@ app.prepare()
 
      server.use('/api/shot', shotRoutes)
      server.use('/api/players', playerRoutes)
+     server.use('/api/teams', teamRoutes)
      server.get('*', (req, res) => {
        return handle(req, res)
      })
