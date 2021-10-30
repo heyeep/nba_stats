@@ -29,7 +29,6 @@ export const getShotDataPoints = (set) => {
       HTM: set[row][22],
       VTM: set[row][23],
     }
-    console.log(shot.eventType)
     shots.push(shot)
   }
   return shots

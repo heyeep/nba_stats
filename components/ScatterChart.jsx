@@ -34,9 +34,9 @@ export default function ScatterChart({ width, height, points }) {
               className="dot"
               cx={xScale(point.locX)}
               cy={yScale(point.locY)}
-              r={i % 2 === 0 ? 2 : 3}
+              r={Math.floor(Math.random() * 6) + 1.5}
               fill={point.eventType === 'Missed Shot' ? 'red' : 'teal'}
-              opacity={0.4}
+              opacity={0.5}
             />
           ))}
         </Group>
