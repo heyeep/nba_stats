@@ -7,6 +7,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
 const handle = app.getRequestHandler()
 const shotRoutes = require('./routes/shot.jsx')
+const playerRoutes = require('./routes/players.jsx')
 
 app.prepare()
    .then(() => {
@@ -15,6 +16,7 @@ app.prepare()
      server.use(bodyParser.json())
 
      server.use('/api/shot', shotRoutes)
+     server.use('/api/players', playerRoutes)
      server.get('*', (req, res) => {
        return handle(req, res)
      })
