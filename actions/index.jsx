@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const getShots = async (req) => {
-  return await axios.get('/api/shots')
+export const getShots = async (playerId) => {
+  return await axios.get(`/api/shots?player=${playerId}`)
     .then(response => response)
 }
 

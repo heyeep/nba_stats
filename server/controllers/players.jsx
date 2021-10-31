@@ -17,7 +17,7 @@ exports.getPlayerById = async (req, res) => {
                              .then(response => {
                                const data = {
                                  personId: playerId,
-                                 stats: response.data.league.standard.stats
+                                 playerStats: response.data.league.standard.stats
                                }
                                res.status(200).json(data)
                              })
