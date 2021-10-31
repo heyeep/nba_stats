@@ -1,17 +1,30 @@
 import React from 'react'
 import Head from 'next/head'
 import PlayerSearch from './PlayerSearch'
+import ShotChart from '../components/ShotChart'
 import { Container, Row, Col } from 'reactstrap'
-import { getPlayers } from '../actions'
+import { getPlayers, getPlayer, getShots } from '../actions'
 import { getPlayerListOptions } from '../helpers/util'
 
 class PlayerContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      players: []
+      players: [],
+      player: {},
+      playerStats: {},
+      playerShots: [],
+      playerSeasons: []
     }
   }
+
+  handleChangePlayer = (player) => {
+    if ((typeof(player) !== 'undefined') && (player !== null)) {
+      this.setState({player})
+      this.getPlayerData()
+    }
+  }
+
   async componentDidMount() {
     try {
       const response = await getPlayers()
@@ -22,18 +35,67 @@ class PlayerContainer extends React.Component {
     } catch (err) {
       console.error(err)
     }
-    console.log(this.state.players)
+  }
+
+  async getPlayerData() {
+    try {
+      const { player } = this.state
+      const response = await getPlayer(player.id)
+      if (response.status === 200) {
+        const { playerStats } = response.data
+        this.setState({playerStats})
+        this.getSeasons()
+        this.getShotData()
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async getShotData() {
+    try {
+      const { player } = this.state
+      const response = await getShots(player.id)
+      if (response.status === 200) {
+        const rows = response.data.resultSets[0].rowSet
+        this.setState({playerShots: rows})
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  getSeasons() {
+    const { season } = this.state.playerStats.regularSeason
+    const playerSeasons = season.map(year => year.seasonYear)
+    this.setState({playerSeasons})
   }
 
   render() {
-    const { players} = this.state
+    const { players, player, playerStats, playerShots, playerSeasons } = this.state
+    console.log(playerSeasons)
     return (
       <>
         <Head>
           <title>Players</title>
         </Head>
         <Container>
-          <PlayerSearch players={getPlayerListOptions(players)}/>
+          <Row>
+            <Col>
+              <PlayerSearch players={getPlayerListOptions(players)}
+                            changePlayer={this.handleChangePlayer} />
+              {
+                player &&
+                  <p>{player.name}</p>
+              }
+            </Col>
+            <Col>
+              {
+                  <ShotChart shots={playerShots} />
+              }
+            </Col>
+          </Row>
+
         </Container>
       </>
     )
