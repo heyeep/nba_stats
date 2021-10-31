@@ -33,3 +33,13 @@ export const getShotDataPoints = (set) => {
   }
   return shots
 }
+
+export const getPlayerListOptions = (players) => {
+  const results = players.map(player => {
+    const fullName = player.firstName + ' ' + player.lastName
+    const option = { value: player.personId, label: fullName }
+    return option
+  })
+
+  return results
+}

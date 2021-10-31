@@ -3,6 +3,7 @@ import Head from 'next/head'
 import PlayerSearch from './PlayerSearch'
 import { Container, Row, Col } from 'reactstrap'
 import { getPlayers } from '../actions'
+import { getPlayerListOptions } from '../helpers/util'
 
 class PlayerContainer extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class PlayerContainer extends React.Component {
           <title>Players</title>
         </Head>
         <Container>
-          <PlayerSearch players={players}/>
+          <PlayerSearch players={getPlayerListOptions(players)}/>
         </Container>
       </>
     )

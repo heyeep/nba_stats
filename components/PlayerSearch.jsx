@@ -1,33 +1,17 @@
 import React, {useState, useEffect} from 'react'
+import Select from 'react-select'
+import { getPlayerListOptions } from '../helpers/util'
 
-export default function PlayerSearch({players}) {
-  const [search, setSearch] = useState()
-  const [searchResults, setSearchResults] = useState([])
-  const handleChange = event => {
-    setSearch(event.target.value)
+export default function PlayerSearch({ players }) {
+  const [selected, setSelected] = useState(null)
+  const handleChange = selected => {
+    console.log(selected)
+    setSelected(selected)
   }
 
-  useEffect(() => {
-    const results = players.filter(player => {
-      const fullName = player.firstName + ' ' + player.lastName
-      return fullName.toLowerCase().includes(search.toLowerCase())}
-    )
-    setSearchResults(results)
-  }, [search])
-
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={search}
-        onChange={handleChange}
-      />
-      <ul>
-         {searchResults.map(item => (
-          <li>{item.firstName}</li>
-        ))}
-      </ul>
-    </div>
+    <Select value={selected}
+            onChange={handleChange}
+            options={players} />
   )
 }
