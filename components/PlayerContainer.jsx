@@ -71,6 +71,15 @@ class PlayerContainer extends React.Component {
     this.setState({playerSeasons})
   }
 
+  getPlayerImage() {
+    const { player } = this.state
+    return player && (
+      <img src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.id}.png`}
+      alt="No Image"
+      />
+    )
+  }
+
   render() {
     const { players, player, playerStats, playerShots, playerSeasons } = this.state
     console.log(playerSeasons)
@@ -86,7 +95,9 @@ class PlayerContainer extends React.Component {
                             changePlayer={this.handleChangePlayer} />
               {
                 player &&
-                  <p>{player.name}</p>
+                  <>
+                    {this.getPlayerImage()}
+                </>
               }
             </Col>
             <Col>
