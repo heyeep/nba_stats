@@ -13,9 +13,9 @@ class PlayerContainer extends React.Component {
     super(props)
     this.state = {
       players: [],
-      player: {},
+      player: null,
       season: 0,
-      playerStats: {},
+      playerStats: null,
       playerShots: [],
       playerSeasons: [],
       isLoading: false
@@ -91,6 +91,16 @@ class PlayerContainer extends React.Component {
     )
   }
 
+  getSeasonStats(playerStats, key) {
+    const seasons = playerStats.regularSeason.season
+    const results = seasons.map(season => {
+      const year = season.seasonYear
+      const amount = parseFloat(season.total[key])
+      return { year, amount }
+    })
+    return results
+  }
+
   render() {
     const {
       players,
@@ -123,13 +133,16 @@ class PlayerContainer extends React.Component {
                             </div>
                           </Col>
                         </Row>
-                        <Row>
-                          <Col>
-                            <div className="playerImage">
-                              <StatChart />
-                            </div>
-                          </Col>
-                        </Row>
+                        {
+                          playerStats &&
+                            <Row>
+                              <Col>
+                                <div className="playerImage">
+                                  <StatChart stats={this.getSeasonStats(playerStats, 'ppg')}/>
+                                </div>
+                              </Col>
+                            </Row>
+                        }
                       </>
                   }
                 </Col>
