@@ -12,7 +12,6 @@ class ShotChart extends React.Component {
 
   render() {
     const { title, shots } = this.props
-    console.log(shots)
     return shots && (
       <>
         <div className="shotchart-page" style={{"height" : "700px", "width" : "700px"}}>
@@ -24,7 +23,7 @@ class ShotChart extends React.Component {
                             points={getShotDataPoints(shots)}
               />
             }
-          </ParentSize>,
+          </ParentSize>
         </div>
       </>
     )

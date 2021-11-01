@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const getShots = async (playerId) => {
-  return await axios.get(`/api/shots?player=${playerId}`)
+export const getShots = async (playerId, season) => {
+  return await axios.get(`/api/shots?player=${playerId}&season=${season}`)
     .then(response => response)
 }
 

@@ -43,3 +43,10 @@ export const getPlayerListOptions = (players) => {
 
   return results
 }
+
+export const getPlayerSeasonOptions = (seasons) => {
+  const results = seasons.map(season => {
+    return { value: season, label: season }
+  })
+  return results
+}
