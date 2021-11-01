@@ -14,3 +14,40 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.courtContainer {
+  width: 700px;
+  height: 700px;
+  position: relative;
+}
+
+.courtImage {
+  height: 34%;
+  width: 70%;
+  position: relative;
+}
+
+.basketballCourt {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-top: 462px;
+  margin-left: 105px;
+}
+
+.shotChart {
+  z-index: 2;
+  position: absolute;
+}
+
+.searchOptions {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.playerImage {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
