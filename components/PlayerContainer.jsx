@@ -3,6 +3,7 @@ import Head from 'next/head'
 import PlayerSearch from './PlayerSearch'
 import PlayerSeason from './PlayerSeason.jsx'
 import ShotChart from '../components/ShotChart'
+import StatChart from '../components/StatChart'
 import { Container, Row, Col } from 'reactstrap'
 import { getPlayers, getPlayer, getShots } from '../actions'
 import { getPlayerListOptions, getPlayerSeasonOptions } from '../helpers/util'
@@ -31,6 +32,7 @@ class PlayerContainer extends React.Component {
   handleChangeSeason = (season) => {
     this.setState({season})
     this.getShotData(this.state.player.id, this.state.season)
+    console.log(this.state.playerShots)
 
   }
 
@@ -40,8 +42,7 @@ class PlayerContainer extends React.Component {
       const response = await getPlayers()
       if (response.status === 200) {
         const { players } = response.data
-        this.setState({players})
-        this.setState({isLoading: false})
+        this.setState({players, isLoading: false})
       }
     } catch (err) {
       this.setState({isLoading: false})
@@ -107,7 +108,7 @@ class PlayerContainer extends React.Component {
         <Container>
           { !isLoading &&
               <Row>
-                <Col>
+                <Col className="searchOptions">
                   <PlayerSearch players={getPlayerListOptions(players)}
                                 changePlayer={this.handleChangePlayer} />
                   {
@@ -115,13 +116,34 @@ class PlayerContainer extends React.Component {
                       <>
                         <PlayerSeason seasons={getPlayerSeasonOptions(playerSeasons)}
                                       changeSeason={this.handleChangeSeason} />
-                        {this.getPlayerImage()}
+                        <Row>
+                          <Col>
+                            <div className="playerImage">
+                              {this.getPlayerImage()}
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <div className="playerImage">
+                              <StatChart />
+                            </div>
+                          </Col>
+                        </Row>
                       </>
                   }
                 </Col>
                 <Col>
                   {
-                    <ShotChart shots={playerShots} />
+                    <div className="courtContainer">
+                      <div className="basketballCourt">
+                        <img className="courtImage"
+                             src="https://www.seekpng.com/png/full/86-868949_basketball-court-lines-png-clip-art-free-basketball.png"/>
+                      </div>
+                      <div className="shotChart">
+                        <ShotChart shots={playerShots} />
+                      </div>
+                    </div>
                   }
                 </Col>
               </Row>

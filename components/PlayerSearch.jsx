@@ -7,7 +7,6 @@ export default function PlayerSearch({ players, changePlayer }) {
   const handleChange = selected => {
     const player = {id: selected.value, name: selected.label}
     if (player != null) {
-      console.log(player)
       changePlayer(player)
     }
     setSelected(selected)

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@visx/axis": "^2.2.2",
+    "@visx/grid": "^2.2.2",
     "@visx/group": "^2.1.0",
     "@visx/mock-data": "^2.1.2",
     "@visx/responsive": "^2.1.2",
