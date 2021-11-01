@@ -11,21 +11,20 @@ class StatChart extends React.Component {
   }
 
   render() {
-    const { title, stats } = this.props
+    const { title, stats, seasons } = this.props
     return (
-      <>
-        <div className="shotchart-page" style={{"height" : "350px", "width" : "500px"}}>
-          <ParentSize>
-            {
-              ({ width, height }) =>
+      <div className="" style={{"height" : "350px", "width" : "500px"}}>
+        <ParentSize>
+          {
+            ({ width, height }) =>
               <LineChart width={width}
                          height={height}
                          stats={stats}
+                         seasons={seasons}
               />
-            }
-          </ParentSize>
-        </div>
-      </>
+          }
+        </ParentSize>
+      </div>
     )
   }
 }

@@ -15,7 +15,13 @@ const getY = (d) => d.amount
 
 const defaultMargin = { top: 30, right: 20, bottom: 40, left: 30 };
 
-export default function LineChart({ width, height, margin = defaultMargin, stats }) {
+export default function LineChart({
+  width,
+  height,
+  margin = defaultMargin,
+  stats,
+  seasons
+}) {
   if (width < 10) return null;
 
   const xMax = width - margin.left - margin.right;
@@ -23,8 +29,8 @@ export default function LineChart({ width, height, margin = defaultMargin, stats
 
   const yearScale = scaleLinear({
     domain: [
-      Math.min(...stats['ppg'].map(stat => stat.year)),
-      Math.max(...stats['ppg'].map(stat => stat.year))
+      Math.min(...seasons),
+      Math.max(...seasons)
     ],
   });
 
@@ -40,7 +46,7 @@ export default function LineChart({ width, height, margin = defaultMargin, stats
   yearScale.range([0, xMax]);
   yScale.range([yMax, 0]);
 
-//  const scaleMax = Object.keys(stats).map(stat => ())
+  //  const scaleMax = Object.keys(stats).map(stat => ())
   const points = Object.keys(stats).map(stat => (
     stats[stat].map((d, index) => (
       <>
@@ -53,12 +59,12 @@ export default function LineChart({ width, height, margin = defaultMargin, stats
         >
           {d.amount}
         </Text>
-      <circle
-        key={d + index}
-        r={2}
-        cx={yearScale(getX(d))}
-        cy={yScale(getY(d))}
-        stroke="rgba(33,33,33,0.5)"
+        <circle
+          key={d + index}
+          r={2}
+          cx={yearScale(getX(d))}
+          cy={yScale(getY(d))}
+          stroke="rgba(33,33,33,0.5)"
         />
       </>
     )))

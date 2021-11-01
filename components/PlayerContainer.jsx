@@ -80,6 +80,7 @@ class PlayerContainer extends React.Component {
     const { season } = playerStats.regularSeason
     const playerSeasons = season.map(year => year.seasonYear)
     this.setState({playerSeasons, season: Math.max(...playerSeasons)})
+    console.log(this.state.playerSeasons)
   }
 
   getPlayerImage() {
@@ -99,6 +100,15 @@ class PlayerContainer extends React.Component {
       return { year, amount }
     })
     return results
+  }
+
+  getAllSeasonStats(playerStats) {
+    const keys = ['ppg', 'apg', 'spg', 'bpg']
+    let stats = {}
+    keys.forEach((key, _, keys) => {
+      stats[key] = this.getSeasonStats(playerStats, key)
+    })
+    return stats
   }
 
   render() {
@@ -138,7 +148,8 @@ class PlayerContainer extends React.Component {
                             <Row>
                               <Col>
                                 <div className="playerImage">
-                                  <StatChart stats={this.getSeasonStats(playerStats, 'ppg')}/>
+                                  <StatChart stats={this.getAllSeasonStats(playerStats)}
+                                             seasons={this.state.playerSeasons}/>
                                 </div>
                               </Col>
                             </Row>
