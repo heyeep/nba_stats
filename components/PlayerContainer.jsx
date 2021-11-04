@@ -24,16 +24,16 @@ class PlayerContainer extends React.Component {
 
   handleChangePlayer = (player) => {
     if ((typeof(player) !== 'undefined') && (player !== null)) {
-      this.setState({player})
-      this.getPlayerData(player.id)
+      this.setState({player}, () => {
+        this.getPlayerData(player.id)
+      })
     }
   }
 
   handleChangeSeason = (season) => {
-    this.setState({season})
-    this.getShotData(this.state.player.id, this.state.season)
-    console.log(this.state.playerShots)
-
+    this.setState({ season }, () => {
+      this.getShotData(this.state.player.id, this.state.season)
+    })
   }
 
   async componentDidMount() {
@@ -57,7 +57,6 @@ class PlayerContainer extends React.Component {
         const { playerStats } = response.data
         this.setState({playerStats})
         this.getSeasons(playerStats)
-        this.getShotData(playerId, this.state.season)
       }
     } catch (err) {
       console.error(err)
@@ -80,7 +79,6 @@ class PlayerContainer extends React.Component {
     const { season } = playerStats.regularSeason
     const playerSeasons = season.map(year => year.seasonYear)
     this.setState({playerSeasons, season: Math.max(...playerSeasons)})
-    console.log(this.state.playerSeasons)
   }
 
   getPlayerImage() {

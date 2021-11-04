@@ -21,7 +21,7 @@ exports.getShots = async (req, res) => {
   const year = season.slice(2, 4)
   const seasonRange = `${season}-${parseInt(year) + 1}`
   console.log(seasonRange)
- const shots = await axios.get(`https://stats.nba.com/stats/shotchartdetail?\
+  const shots = await axios.get(`https://stats.nba.com/stats/shotchartdetail?\
 ContextMeasure=FGA&LastNGames=0&LeagueID=00&Month=0&OpponentTeamID=0&Period=0&\
 PlayerID=${player}&SeasonType=Regular%20Season&TeamID=0&VsDivision=&VsConference=&\
 SeasonSegment=&Season=${seasonRange}&RookieYear=&PlayerPosition=&Outcome=&Location=&\
